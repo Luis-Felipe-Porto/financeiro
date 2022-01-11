@@ -1,7 +1,7 @@
 package com.api.pagamento.controller;
 
+import com.api.pagamento.dto.PagamentoDto;
 import com.api.pagamento.entity.Pagamento;
-import com.api.pagamento.entity.Usuario;
 import com.api.pagamento.service.PagamentoService;
 import com.api.pagamento.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +19,5 @@ public record PagamentoController (PagamentoService pagamentoService,UsuarioServ
     public ResponseEntity<Pagamento> pagamento(@PathVariable Long usuarioId, @RequestBody Pagamento pagamento){
         return ResponseEntity.ok(pagamentoService.realizarPagamento(usuarioId,pagamento));
         // comunicação assincrona com api estoque
-    }
-    @PostMapping("/cadastrar")
-    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
-        return ResponseEntity.ok(usuarioService.salvar(usuario));
     }
 }

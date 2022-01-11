@@ -15,7 +15,6 @@ public class PagamentoService {
     private final PagamentoRepository pagamentoRepository;
     private final UsuarioRepository usuarioRepository;
 
-
     public PagamentoService(PagamentoRepository pagamentoRepository, UsuarioRepository usuarioRepository) {
         this.pagamentoRepository = pagamentoRepository;
         this.usuarioRepository = usuarioRepository;

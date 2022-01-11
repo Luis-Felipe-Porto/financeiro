@@ -4,10 +4,12 @@ import com.api.pagamento.entity.Produto;
 import com.api.pagamento.entity.Usuario;
 import com.api.pagamento.repository.ProdutoRepository;
 import com.api.pagamento.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
