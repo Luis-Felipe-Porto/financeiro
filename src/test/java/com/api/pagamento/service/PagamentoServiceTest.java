@@ -1,7 +1,6 @@
 package com.api.pagamento.service;
 
 
-import com.api.pagamento.dto.PagamentoDto;
 import com.api.pagamento.entity.Pagamento;
 import com.api.pagamento.entity.Produto;
 import com.api.pagamento.entity.Usuario;
@@ -9,8 +8,10 @@ import com.api.pagamento.repository.UsuarioRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @SpringBootTest
 class PagamentoServiceTest {

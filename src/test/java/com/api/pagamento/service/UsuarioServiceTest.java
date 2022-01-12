@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class UsuarioServiceTest {
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 

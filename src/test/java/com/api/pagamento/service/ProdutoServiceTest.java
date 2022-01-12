@@ -14,7 +14,6 @@ class ProdutoServiceTest {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @DisplayName("Usuário realiza a comprar de um produto adicionando em uma lista")
     @Test
     public void teste_comprar_produto(){

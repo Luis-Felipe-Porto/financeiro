@@ -1,6 +1,5 @@
 package com.api.pagamento.controller;
 
-import com.api.pagamento.dto.ProdutoDto;
 import com.api.pagamento.entity.Produto;
 import com.api.pagamento.service.ProdutoService;
 import org.springframework.http.ResponseEntity;

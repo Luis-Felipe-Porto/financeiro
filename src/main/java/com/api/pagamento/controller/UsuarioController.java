@@ -1,6 +1,5 @@
 package com.api.pagamento.controller;
 
-import com.api.pagamento.dto.UsuarioDto;
 import com.api.pagamento.entity.Usuario;
 import com.api.pagamento.mappers.UserMapper;
 import com.api.pagamento.service.UsuarioService;
@@ -16,7 +15,7 @@ import javax.validation.Valid;
 @Controller
 public record UsuarioController(UsuarioService usuarioService, UserMapper userMapper) {
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastrar-usuario")
     public ResponseEntity<Usuario> comprar(@RequestBody @Valid Usuario usuario) {
         return ResponseEntity.ok(usuarioService.salvar(usuario));
     }
