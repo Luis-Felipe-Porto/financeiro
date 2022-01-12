@@ -1,6 +1,7 @@
 package com.api.pagamento.service;
 
 
+import com.api.pagamento.dto.PagamentoDto;
 import com.api.pagamento.entity.Pagamento;
 import com.api.pagamento.entity.Produto;
 import com.api.pagamento.entity.Usuario;

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     List<UsuarioDto> usuarioToUsuarioDtos(List<Usuario> usuarios);
     UsuarioDto usuarioToUsuarioDto(Usuario usuario);

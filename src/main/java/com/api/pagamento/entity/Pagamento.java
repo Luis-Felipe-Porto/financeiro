@@ -6,9 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Pagamento {
+public class Pagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -34,5 +35,17 @@ public class Pagamento {
         this.valor = valor;
         this.descricao = descricao;
         return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

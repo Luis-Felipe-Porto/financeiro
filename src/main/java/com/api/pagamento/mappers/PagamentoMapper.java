@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PagamentoMapper {
     List<PagamentoDto> pagamentosToPagamentoDtos(List<Pagamento> pagamento);
     PagamentoDto pagamentoToPagamentoDto(Pagamento pagamento);

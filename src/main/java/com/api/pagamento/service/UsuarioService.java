@@ -7,6 +7,8 @@ import com.api.pagamento.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
 @Service
 public class UsuarioService {
 
@@ -19,7 +21,7 @@ public class UsuarioService {
         this.userMapper = userMapper;
     }
     @Transactional
-    public UsuarioDto salvar(Usuario usuario){
-        return userMapper.usuarioToUsuarioDto(usuarioRepository.save(usuario));
+    public Usuario salvar(@Valid Usuario usuario){
+        return usuarioRepository.save(usuario);
     }
 }
