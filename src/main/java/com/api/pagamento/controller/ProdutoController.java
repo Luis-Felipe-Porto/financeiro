@@ -1,6 +1,8 @@
 package com.api.pagamento.controller;
 
+import com.api.pagamento.dto.ProdutoDto;
 import com.api.pagamento.entity.Produto;
+import com.api.pagamento.exception.UserNotFoundException;
 import com.api.pagamento.service.ProdutoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public record ProdutoController(ProdutoService produtoService) {
 
     @PostMapping("/{usuarioId}/comprar")
-    public ResponseEntity<Produto> comprar(@PathVariable Long usuarioId, @RequestBody Produto produto) {
+    public ResponseEntity<ProdutoDto> comprar(@PathVariable Long usuarioId, @RequestBody Produto produto) throws UserNotFoundException {
         return ResponseEntity.ok(produtoService.comprarProduto(usuarioId, produto));
     }
 }

@@ -3,6 +3,7 @@ package com.api.pagamento.service;
 import com.api.pagamento.dto.UsuarioDto;
 import com.api.pagamento.entity.Usuario;
 import com.api.pagamento.mappers.UserMapper;
+import com.api.pagamento.mappers.impl.UserMapperImpl;
 import com.api.pagamento.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class UsuarioService {
     }
     @Transactional
     public UsuarioDto salvar(@Valid Usuario usuario){
-
-        return userMapper.usuarioToUsuarioDto(usuarioRepository.save(usuario));
+        Usuario usuarioSaved = usuarioRepository.save(usuario);
+        return new UsuarioDto(usuarioSaved.getId(),usuario.getNome());
     }
 }
