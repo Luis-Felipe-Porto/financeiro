@@ -36,7 +36,9 @@ public class Pagamento implements Serializable {
         this.descricao = descricao;
         return this;
     }
-
+    public Long getId() {
+        return id;
+    }
     public void setId(Long id) {
         this.id = id;
     }

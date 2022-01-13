@@ -1,4 +1,4 @@
 package com.api.pagamento.dto;
 
-public record UsuarioDto() {
+public record UsuarioDto(String nome) {
 }

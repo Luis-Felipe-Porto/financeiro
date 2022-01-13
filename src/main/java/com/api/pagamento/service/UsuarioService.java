@@ -21,7 +21,8 @@ public class UsuarioService {
         this.userMapper = userMapper;
     }
     @Transactional
-    public Usuario salvar(@Valid Usuario usuario){
-        return usuarioRepository.save(usuario);
+    public UsuarioDto salvar(@Valid Usuario usuario){
+
+        return userMapper.usuarioToUsuarioDto(usuarioRepository.save(usuario));
     }
 }

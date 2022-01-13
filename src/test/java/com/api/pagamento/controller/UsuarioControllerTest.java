@@ -21,16 +21,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UsuarioControllerTest {
     static String PAGAMENTO_API = "/api/books";
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
-    private UsuarioService usuarioService;
+//    @Autowired
+//    private MockMvc mockMvc;
+//    @MockBean
+//    private UsuarioService usuarioService;
 
-    @DisplayName("Deve retornar um status 200 ao cadastrar um usuario")
-    @Test
-    public void test_endpoint_cadastar_usuario()throws Exception{
-        mockMvc.perform(post("/v1/pagamentos/cadastrar-usuario/"))
-                .andExpect(status().is(200));
-
-    }
+//    @DisplayName("Deve retornar um status 200 ao cadastrar um usuario")
+//    @Test
+//    public void test_endpoint_cadastar_usuario()throws Exception{
+////        mockMvc.perform(post("/v1/pagamentos/cadastrar-usuario/"))
+////                .andExpect(status().is(200));
+//
+//    }
 }
