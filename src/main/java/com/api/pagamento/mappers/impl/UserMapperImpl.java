@@ -12,7 +12,7 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public UsuarioDto usuarioToUsuarioDto(Usuario usuario) {
-        return new UsuarioDto(usuario.getNome());
+        return new UsuarioDto(usuario.getId(),usuario.getNome());
     }
 
     @Override

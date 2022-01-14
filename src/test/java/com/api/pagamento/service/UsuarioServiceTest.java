@@ -19,7 +19,7 @@ class UsuarioServiceTest {
     public void teste_comprar_produto(){
         Usuario usuario = new Usuario("Felipe",1L);
         usuarioRepository.save(usuario);
-        Produto caneta = new Produto("Caneta",9.00);
+        Produto caneta = new Produto("Caneta",9.00,"644@654");
         Produto produtoComprado = usuario.comprarProduto(caneta);
         Assertions.assertThat(produtoComprado).isNotNull();
         Assertions.assertThat(produtoComprado.getNome()).isEqualTo(caneta.getNome());

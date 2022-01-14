@@ -15,9 +15,9 @@ class PagamentoApplicationTests {
     @DisplayName("Deve realizar varios comprar de produtos")
     void teste_compra_varios_produtos() {
         Usuario usuario = new Usuario("Felipe");
-        Produto lapis = new Produto("Lapis",1.00);
-        Produto caneta = new Produto("Caneta",2.00);
-        Produto caderno = new Produto("Caderno",29.00);
+        Produto lapis = new Produto("Lapis",1.00,"300@44");
+        Produto caneta = new Produto("Caneta",2.00,"355@097");
+        Produto caderno = new Produto("Caderno",29.00,"7865@66");
 
         usuario.comprarProduto(lapis);
         usuario.comprarProduto(caderno);
@@ -32,7 +32,7 @@ class PagamentoApplicationTests {
     @DisplayName("Deve realizar uma compra de um produto")
     void teste_comprar_produto(){
         Usuario usuario = new Usuario("Felipe");
-        Produto borracha = new Produto("borracha",1.50);
+        Produto borracha = new Produto("borracha",1.50,"775@876");
 
         Produto produtoComprado =  usuario.comprarProduto(borracha);
         Assertions.assertThat(produtoComprado.getNome()).isEqualTo(borracha.getNome());
@@ -41,7 +41,7 @@ class PagamentoApplicationTests {
     @DisplayName("Deve pagar um produto")
     void teste_pagar_produto(){
         Usuario usuario = new Usuario("Felipe");
-        Produto borracha = new Produto("borracha",1.50);
+        Produto borracha = new Produto("borracha",1.50,"BOO@244");
         Produto produtoComprado =  usuario.comprarProduto(borracha);
         Pagamento boleto = new Pagamento();
         Pagamento pagamento = usuario.realizarPagamento(boleto);

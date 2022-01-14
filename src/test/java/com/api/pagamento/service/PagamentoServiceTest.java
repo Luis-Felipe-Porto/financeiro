@@ -1,9 +1,11 @@
 package com.api.pagamento.service;
 
 
+import com.api.pagamento.dto.PagamentoDto;
 import com.api.pagamento.entity.Pagamento;
 import com.api.pagamento.entity.Produto;
 import com.api.pagamento.entity.Usuario;
+import com.api.pagamento.exception.UserNotFoundException;
 import com.api.pagamento.repository.UsuarioRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -23,15 +25,15 @@ class PagamentoServiceTest {
 
     @DisplayName("Deve realizar um pagamento passando Usuário e um pagamento")
     @Test
-    public void teste_realizar_pagamento(){
+    public void teste_realizar_pagamento() throws UserNotFoundException {
         Usuario usuario = new Usuario("Felipe",1L);
-        Produto caderno = new Produto("Caderno",29.00);
+        Produto caderno = new Produto("Caderno",29.00,"100@45");
         Pagamento pix = new Pagamento();
         usuario.comprarProduto(caderno);
         usuarioRepository.save(usuario);
-        Pagamento pagamentoComPix = pagamentoService.realizarPagamento(usuario.getId(), pix);
+        PagamentoDto pagamentoComPix = pagamentoService.realizarPagamento(usuario.getId(), pix);
         Assertions.assertThat(pagamentoComPix).isNotNull();
-        Assertions.assertThat(pagamentoComPix.getValor()).isEqualTo(caderno.getValor());
+        Assertions.assertThat(pagamentoComPix.valor()).isEqualTo(caderno.getValor());
     }
 
 }

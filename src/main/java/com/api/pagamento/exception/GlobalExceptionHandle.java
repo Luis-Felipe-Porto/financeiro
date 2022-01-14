@@ -49,5 +49,10 @@ public class GlobalExceptionHandle extends ResponseEntityExceptionHandler {
                 ex.getExpectedSize(), ex.getActualSize());
         return Resposta.com( new Erro(mensagem, ex.getMostSpecificCause().toString() ) );
     }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleMatriculaDublicada(UserNotFoundException ex) {
+        Erro errorMessage = new Erro("ID do usuário não correpondente a um usuário cadastrado", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
 
 }
