@@ -30,6 +30,7 @@ public class PagamentoService {
         Usuario cliente = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
         cliente.realizarPagamento(pagamento);
         pagamentoRepository.save(pagamento);
+
         return new PagamentoDto(pagamento.getId(),pagamento.getValor(),pagamento.getDescricao());
     }
 }
