@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: sa
+    url: jdbc:h2:file:./data/exemplo
+    driverClassName: org.h2.Driver
+    password: password
+  h2:
+    console:
+      enabled: 'true'
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
