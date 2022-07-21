@@ -1,6 +1,7 @@
 package com.api.financeiro.mappers.impl;
 
 import com.api.financeiro.dto.PagamentoDto;
+import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.mappers.PagamentoMapper;
 
@@ -22,4 +23,14 @@ public class PagamentoMapperImpl implements PagamentoMapper {
     public Pagamento pagamentoDtoToPagamento(PagamentoDto pagamentoDto) {
         return new Pagamento(pagamentoDto.valor(),pagamentoDto.descricao());
     }
+
+    @Override
+    public Pagamento dadosClienteToPagamento(DadosClientePagamento clientePagamento) {
+
+        return new Pagamento(clientePagamento.getValorCompra(),
+                clientePagamento.getValorCompra().toString(),
+                clientePagamento);
+    }
+
+
 }

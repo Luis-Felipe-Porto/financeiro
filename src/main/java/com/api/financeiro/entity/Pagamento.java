@@ -1,9 +1,6 @@
 package com.api.financeiro.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -19,10 +16,28 @@ public class Pagamento implements Serializable {
     @NotNull
     private String descricao;
 
+    @NotNull
+    @ManyToOne
+    private DadosClientePagamento dadosClientePagamento;
+
+    public Pagamento(Long id, Double valor, String descricao, DadosClientePagamento dadosClientePagamento) {
+        this.id = id;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.dadosClientePagamento = dadosClientePagamento;
+    }
+
     public Pagamento(Double valor, String descricao) {
         this.valor = valor;
         this.descricao = descricao;
     }
+
+    public Pagamento(Double valor, String descricao, DadosClientePagamento dadosClientePagamento) {
+        this.valor = valor;
+        this.descricao = descricao;
+        this.dadosClientePagamento = dadosClientePagamento;
+    }
+
     public Pagamento(){
     }
     public Double getValor() {
@@ -49,5 +64,13 @@ public class Pagamento implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setDadosClientePagamento(DadosClientePagamento dadosClientePagamento) {
+        this.dadosClientePagamento = dadosClientePagamento;
+    }
+
+    public DadosClientePagamento getDadosClientePagamento() {
+        return dadosClientePagamento;
     }
 }

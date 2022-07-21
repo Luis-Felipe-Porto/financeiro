@@ -1,6 +1,7 @@
 package com.api.financeiro.controller;
 
 import com.api.financeiro.dto.PagamentoDto;
+import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.exception.UserNotFoundException;
 import com.api.financeiro.service.PagamentoService;
@@ -12,14 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/v1/pagamentos")
+@RequestMapping("/v1/financeiro")
 @Controller
 public record PagamentoController (PagamentoService pagamentoService,UsuarioService usuarioService){
 
-    @PostMapping("/{usuarioId}/pagar")
-    public ResponseEntity<PagamentoDto> pagamento(@PathVariable Long usuarioId, @RequestBody Pagamento pagamento) throws UserNotFoundException {
-        return ResponseEntity.ok(pagamentoService.realizarPagamento(usuarioId,pagamento));
+    @PostMapping("")
+    public ResponseEntity<PagamentoDto> pagamento(@RequestBody DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
+        return ResponseEntity.ok(pagamentoService.realizarPagamento(dadosClientePagamento));
         // comunicação assincrona com api estoque
-
     }
 }

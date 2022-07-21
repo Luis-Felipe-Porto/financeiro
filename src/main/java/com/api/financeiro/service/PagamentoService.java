@@ -1,6 +1,7 @@
 package com.api.financeiro.service;
 
 import com.api.financeiro.dto.PagamentoDto;
+import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.entity.Usuario;
 import com.api.financeiro.exception.UserNotFoundException;
@@ -25,11 +26,10 @@ public class PagamentoService {
         this.pagamentoMapper = pagamentoMapper;
     }
     @Transactional
-    public PagamentoDto realizarPagamento(Long usuarioId,@Valid Pagamento pagamento) throws UserNotFoundException {
-        Usuario cliente = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
-        cliente.realizarPagamento(pagamento);
+    public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
+        Thread.sleep(30000);
+        Pagamento pagamento = pagamentoMapper.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
-
         return new PagamentoDto(pagamento.getId(),pagamento.getValor(),pagamento.getDescricao());
     }
 }

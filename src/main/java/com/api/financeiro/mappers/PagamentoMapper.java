@@ -1,6 +1,7 @@
 package com.api.financeiro.mappers;
 
 import com.api.financeiro.dto.PagamentoDto;
+import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import org.mapstruct.Mapper;
 
@@ -11,4 +12,5 @@ public interface PagamentoMapper {
     List<PagamentoDto> pagamentosToPagamentoDtos(List<Pagamento> pagamento);
     PagamentoDto pagamentoToPagamentoDto(Pagamento pagamento);
     Pagamento pagamentoDtoToPagamento(PagamentoDto pagamentoDto);
+    Pagamento dadosClienteToPagamento(DadosClientePagamento clientePagamento);
 }
