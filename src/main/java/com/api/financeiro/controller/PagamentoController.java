@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public record PagamentoController (PagamentoService pagamentoService,UsuarioService usuarioService){
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<PagamentoDto> pagamento(@RequestBody DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
         return ResponseEntity.ok(pagamentoService.realizarPagamento(dadosClientePagamento));
         // comunicação assincrona com api estoque

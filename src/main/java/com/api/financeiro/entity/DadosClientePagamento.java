@@ -10,7 +10,7 @@ public class DadosClientePagamento {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String documentoCliente;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private InformacoesCartao informacoesCartao;
     private String email;
     private Double valorCompra;

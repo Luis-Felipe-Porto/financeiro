@@ -16,8 +16,8 @@ public class Pagamento implements Serializable {
     @NotNull
     private String descricao;
 
-    @NotNull
     @ManyToOne
+    @JoinColumn
     private DadosClientePagamento dadosClientePagamento;
 
     public Pagamento(Long id, Double valor, String descricao, DadosClientePagamento dadosClientePagamento) {

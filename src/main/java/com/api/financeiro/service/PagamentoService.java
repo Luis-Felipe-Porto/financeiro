@@ -6,6 +6,8 @@ import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.entity.Usuario;
 import com.api.financeiro.exception.UserNotFoundException;
 import com.api.financeiro.mappers.PagamentoMapper;
+import com.api.financeiro.mappers.PagamentoMapperImpl;
+import com.api.financeiro.mappers.impl.PagamentoMapperCustom;
 import com.api.financeiro.repository.PagamentoRepository;
 import com.api.financeiro.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,9 @@ public class PagamentoService {
     }
     @Transactional
     public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
-        Thread.sleep(30000);
-        Pagamento pagamento = pagamentoMapper.dadosClienteToPagamento(dadosClientePagamento);
+        Thread.sleep(300);
+        PagamentoMapperCustom pagamentoMapperCustom = new PagamentoMapperCustom();
+        Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
         return new PagamentoDto(pagamento.getId(),pagamento.getValor(),pagamento.getDescricao());
     }

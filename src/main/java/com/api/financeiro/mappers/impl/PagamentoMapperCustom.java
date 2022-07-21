@@ -4,11 +4,12 @@ import com.api.financeiro.dto.PagamentoDto;
 import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.mappers.PagamentoMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-public class PagamentoMapperImpl implements PagamentoMapper {
+public class PagamentoMapperCustom implements PagamentoMapper {
 
 
     @Override
