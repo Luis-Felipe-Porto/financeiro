@@ -27,10 +27,10 @@ public class PagamentoMapperCustom implements PagamentoMapper {
 
     @Override
     public Pagamento dadosClienteToPagamento(DadosClientePagamento clientePagamento) {
-
-        return new Pagamento(clientePagamento.getValorCompra(),
-                clientePagamento.getValorCompra().toString(),
-                clientePagamento);
+        Pagamento pagamento = new Pagamento(clientePagamento.getValorCompra(),
+                clientePagamento.getValorCompra().toString());
+        pagamento.setDadosClientePagamento(clientePagamento);
+        return pagamento;
     }
 
 

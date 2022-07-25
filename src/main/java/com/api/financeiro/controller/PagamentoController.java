@@ -19,6 +19,7 @@ public record PagamentoController (PagamentoService pagamentoService,UsuarioServ
 
     @PostMapping()
     public ResponseEntity<PagamentoDto> pagamento(@RequestBody DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
+
         return ResponseEntity.ok(pagamentoService.realizarPagamento(dadosClientePagamento));
         // comunicação assincrona com api estoque
     }
