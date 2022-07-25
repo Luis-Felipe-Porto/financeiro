@@ -20,11 +20,22 @@ public class Pagamento implements Serializable {
     @JoinColumn
     private DadosClientePagamento dadosClientePagamento;
 
+    @NotNull
+    private Boolean pagamentoEfetuado;
+
     public Pagamento(Long id, Double valor, String descricao, DadosClientePagamento dadosClientePagamento) {
         this.id = id;
         this.valor = valor;
         this.descricao = descricao;
         this.dadosClientePagamento = dadosClientePagamento;
+    }
+
+    public Boolean getPagamentoEfetuado() {
+        return pagamentoEfetuado;
+    }
+
+    public void mudarStatusPagamentoRealizado() {
+        this.pagamentoEfetuado = true;
     }
 
     public Pagamento(Double valor, String descricao) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class ScheduleService {
-    private static final String CRON_LATE_LOANS = "* */2 * * * ?";
+    private static final String CRON_LATE_LOANS = "* * */2 * * ?";
     private final PagamentoRepository pagamentoRepository;
 
     private final DadosClientePagamentoRepository dadosClientePagamentoRepository;
@@ -28,11 +28,10 @@ public class ScheduleService {
         List<DadosClientePagamento> dadosCliente = pagamentosPendentes.stream()
                 .map(Pagamento::getDadosClientePagamento)
                 .toList();
-
-        dadosCliente.forEach(dadosClientePagamento -> {
-            InformacoesCartao informacoesCartao = dadosClientePagamento.getInformacoesCartao();
-            dadosClientePagamentoRepository.pagar(dadosClientePagamento,informacoesCartao);
+        pagamentosPendentes.forEach(pagamentoCliente -> {
+            pagamentoCliente.mudarStatusPagamentoRealizado();
+            pagamentoRepository.save(pagamentoCliente);
         });
-        System.out.println("--------- Executando pagamentos ---------");
+        System.out.println("--------- Executando pagamento ---------");
     }
 }
