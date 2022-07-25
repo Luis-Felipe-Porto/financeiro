@@ -20,19 +20,20 @@ public class PagamentoService {
     private final PagamentoRepository pagamentoRepository;
 
     private final DadosClientePagamentoRepository dadosClientePagamentoRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final PagamentoMapper pagamentoMapper;
 
-    public PagamentoService(PagamentoRepository pagamentoRepository, DadosClientePagamentoRepository dadosClientePagamentoRepository, UsuarioRepository usuarioRepository, PagamentoMapper pagamentoMapper) {
+    private final PagamentoMapperCustom pagamentoMapperCustom;
+
+    public PagamentoService(PagamentoRepository pagamentoRepository, DadosClientePagamentoRepository dadosClientePagamentoRepository,
+                            PagamentoMapperCustom pagamentoMapperCustom) {
         this.pagamentoRepository = pagamentoRepository;
         this.dadosClientePagamentoRepository = dadosClientePagamentoRepository;
-        this.usuarioRepository = usuarioRepository;
-        this.pagamentoMapper = pagamentoMapper;
+
+        this.pagamentoMapperCustom = pagamentoMapperCustom;
+
     }
     @Transactional
     public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
         Thread.sleep(300);
-        PagamentoMapperCustom pagamentoMapperCustom = new PagamentoMapperCustom();
         dadosClientePagamentoRepository.save(dadosClientePagamento);
         Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
