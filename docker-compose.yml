@@ -1,0 +1,12 @@
+version: "3.1"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-financeiro-java
+    image: financeiro:0.0.1
+    expose:
+      - 8090
+    ports:
+      - 8092:8090
