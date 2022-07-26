@@ -10,3 +10,10 @@ services:
       - 8090
     ports:
       - 8092:8090
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    ports:
+      - 5672:5672
