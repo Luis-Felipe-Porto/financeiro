@@ -33,7 +33,6 @@ public class PagamentoService {
     }
     @Transactional
     public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
-        Thread.sleep(300);
         dadosClientePagamentoRepository.save(dadosClientePagamento);
         Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
