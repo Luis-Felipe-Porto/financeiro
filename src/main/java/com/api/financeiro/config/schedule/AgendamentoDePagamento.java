@@ -14,9 +14,9 @@ import java.util.List;
 @Component
 public class AgendamentoDePagamento {
 
-    private static final String CRON_LATE_LOANS = "0 0 0 1/1 * ?";
+    private static final String CRON_LATE_LOANS = "0 */1 * ? * *";
     @Value("${application.quantidade-pagamento}")
-    private static  Integer QTD_PAGAMENTO;
+    private static Integer QTD_PAGAMENTO=50;
 
     private PagamentoService pagamentoService;
     private RabbitMQService rabbitMQService;
@@ -33,7 +33,6 @@ public class AgendamentoDePagamento {
         pagamentoClienteDtos.forEach(pagamentoClienteDto -> {
             rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto);
         });
-
         System.out.println("Pagamento ------- Agendado");
     }
 }

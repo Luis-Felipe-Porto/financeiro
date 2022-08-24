@@ -12,6 +12,10 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
-
+  rabbitmq:
+    host: {RABBITMQ:localhost}
+    port: 5672
+    password: admin
+    username: admin
 application:
   quantidade-pagamento: 50

@@ -5,15 +5,22 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: api-financeiro-java
-    image: financeiro:0.0.1
+    image: financeiro-java:latest
     expose:
       - 8090
     ports:
       - 8092:8090
     depends_on:
       - rabbitmq
+    environment:
+      - RABBITMQ=rabbitmq
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq
     ports:
       - 5672:5672
+    volumes:
+      - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
