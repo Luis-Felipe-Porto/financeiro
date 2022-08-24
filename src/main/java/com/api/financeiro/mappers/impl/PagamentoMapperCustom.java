@@ -1,7 +1,10 @@
 package com.api.financeiro.mappers.impl;
 
+import com.api.financeiro.dto.InformacaoCartaoDto;
+import com.api.financeiro.dto.PagamentoClienteDto;
 import com.api.financeiro.dto.PagamentoDto;
 import com.api.financeiro.entity.DadosClientePagamento;
+import com.api.financeiro.entity.InformacoesCartao;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.mappers.PagamentoMapper;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +35,21 @@ public class PagamentoMapperCustom implements PagamentoMapper {
                 clientePagamento.getValorCompra().toString());
         pagamento.setDadosClientePagamento(clientePagamento);
         return pagamento;
+    }
+    public PagamentoClienteDto pagamentoToClienteDto(Pagamento pagamento){
+        PagamentoDto pagamentoDto = this.pagamentoToPagamentoDto(pagamento);
+        return new PagamentoClienteDto(pagamentoDto,
+                informacaoCartaoToInformacaoCartaoDto(pagamento.getDadosClientePagamento().getInformacoesCartao()),
+                pagamento.getDadosClientePagamento().getEmail(),
+                pagamento.getDadosClientePagamento().getValorCompra());
+    }
+    private InformacaoCartaoDto informacaoCartaoToInformacaoCartaoDto(InformacoesCartao informacoesCartao){
+        return new InformacaoCartaoDto(
+                informacoesCartao.getNomeResponsavelCartao(),
+                informacoesCartao.getNumeroCartao(),
+                informacoesCartao.getMesCartaoExpiracao(),
+                informacoesCartao.getAnoExpiracaoCartao(),
+                informacoesCartao.getCodigoDeSeguranca());
     }
 
 

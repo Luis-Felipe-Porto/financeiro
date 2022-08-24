@@ -35,22 +35,16 @@ public class RabbitMQConection {
     }
     @PostConstruct
     private void adiciona(){
-        Queue filaMarketing = this.fila(RabbitMQConstantes.FILA_MARKETING.getValue());
-        Queue filaCurso = this.fila(RabbitMQConstantes.FILA_CURSO.getValue());
+        Queue filaFinanceiro = this.fila(RabbitMQConstantes.FILA_FINANCEIRO.getValue());
 
         DirectExchange troca = this.trocaDireta();
 
-        Binding ligacaoMarketing = this.relacionamento(filaMarketing, troca);
-        Binding ligacaoCurso = this.relacionamento(filaCurso, troca);
+        Binding ligacaoMarketing = this.relacionamento(filaFinanceiro, troca);
 
-
-        this.amqpAdmin.declareQueue(filaMarketing);
-        this.amqpAdmin.declareQueue(filaCurso);
+        this.amqpAdmin.declareQueue(filaFinanceiro);
 
         this.amqpAdmin.declareExchange(troca);
 
         this.amqpAdmin.declareBinding(ligacaoMarketing);
-        this.amqpAdmin.declareBinding(ligacaoCurso);
-
     }
 }

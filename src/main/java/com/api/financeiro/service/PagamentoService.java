@@ -1,18 +1,22 @@
 package com.api.financeiro.service;
 
+import com.api.financeiro.config.rabbitmq.enums.RabbitMQConstantes;
+import com.api.financeiro.config.rabbitmq.service.RabbitMQService;
+import com.api.financeiro.dto.PagamentoClienteDto;
 import com.api.financeiro.dto.PagamentoDto;
 import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
 import com.api.financeiro.exception.UserNotFoundException;
-import com.api.financeiro.mappers.PagamentoMapper;
 import com.api.financeiro.mappers.impl.PagamentoMapperCustom;
 import com.api.financeiro.repository.DadosClientePagamentoRepository;
 import com.api.financeiro.repository.PagamentoRepository;
-import com.api.financeiro.repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Service
 public class PagamentoService {
@@ -23,19 +27,26 @@ public class PagamentoService {
 
     private final PagamentoMapperCustom pagamentoMapperCustom;
 
+    private final RabbitMQService rabbitMQService;
+
     public PagamentoService(PagamentoRepository pagamentoRepository, DadosClientePagamentoRepository dadosClientePagamentoRepository,
-                            PagamentoMapperCustom pagamentoMapperCustom) {
+                            PagamentoMapperCustom pagamentoMapperCustom, RabbitMQService rabbitMQService) {
         this.pagamentoRepository = pagamentoRepository;
         this.dadosClientePagamentoRepository = dadosClientePagamentoRepository;
-
         this.pagamentoMapperCustom = pagamentoMapperCustom;
-
+        this.rabbitMQService = rabbitMQService;
     }
     @Transactional
-    public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException, InterruptedException {
+    public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException {
         dadosClientePagamentoRepository.save(dadosClientePagamento);
         Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
         return new PagamentoDto(pagamento.getId(),pagamento.getValor(),pagamento.getDescricao());
+    }
+    public List<PagamentoClienteDto> pagamentoAgendados(Integer quantidade){
+        Pageable pageable = Pageable.ofSize(quantidade);
+        Page<Pagamento> pagamentos = pagamentoRepository.findAll(pageable);
+        return pagamentos.map(pagamentoMapperCustom::pagamentoToClienteDto)
+                .stream().toList();
     }
 }
