@@ -2,6 +2,7 @@ package com.api.financeiro.service;
 
 import com.api.financeiro.config.rabbitmq.enums.RabbitMQConstantes;
 import com.api.financeiro.config.rabbitmq.service.RabbitMQService;
+import com.api.financeiro.dto.InformacaoCartaoDto;
 import com.api.financeiro.dto.PagamentoClienteDto;
 import com.api.financeiro.dto.PagamentoDto;
 import com.api.financeiro.entity.DadosClientePagamento;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PagamentoService {
@@ -45,8 +47,17 @@ public class PagamentoService {
     }
     public List<PagamentoClienteDto> pagamentoAgendados(Integer quantidade){
         Pageable pageable = Pageable.ofSize(quantidade);
-        Page<Pagamento> pagamentos = pagamentoRepository.findAll(pageable);
+        Page<Pagamento> pagamentos = pagamentoRepository.findAllByPagamentoEfetuadoFalse(pageable);
         return pagamentos.map(pagamentoMapperCustom::pagamentoToClienteDto)
                 .stream().toList();
+    }
+    public PagamentoDto salvarPagamentoEfetuado(PagamentoClienteDto pagamentoClienteDto){
+        Optional<Pagamento> pagamentoCliente = pagamentoRepository.findById(pagamentoClienteDto.pagamentoDto().id());
+
+        Pagamento pagamentoRealizado = pagamentoCliente.map(pagamento -> {
+            pagamento.pagmentoEfetuado();
+            return pagamentoRepository.save(pagamento);
+        }).orElseThrow(() -> new RuntimeException("ERRO AO REALIZAR PAGAMENTO"));
+        return pagamentoMapperCustom.pagamentoToPagamentoDto(pagamentoRealizado);
     }
 }

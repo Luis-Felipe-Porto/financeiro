@@ -21,13 +21,14 @@ public class Pagamento implements Serializable {
     private DadosClientePagamento dadosClientePagamento;
 
     @NotNull
-    private Boolean pagamentoEfetuado;
+    private Boolean pagamentoEfetuado = Boolean.FALSE;
 
     public Pagamento(Long id, Double valor, String descricao, DadosClientePagamento dadosClientePagamento) {
         this.id = id;
         this.valor = valor;
         this.descricao = descricao;
         this.dadosClientePagamento = dadosClientePagamento;
+        this.pagamentoEfetuado = Boolean.FALSE;
     }
 
     public Boolean getPagamentoEfetuado() {
@@ -83,5 +84,8 @@ public class Pagamento implements Serializable {
 
     public DadosClientePagamento getDadosClientePagamento() {
         return dadosClientePagamento;
+    }
+    public void pagmentoEfetuado(){
+        this.pagamentoEfetuado = Boolean.TRUE;
     }
 }

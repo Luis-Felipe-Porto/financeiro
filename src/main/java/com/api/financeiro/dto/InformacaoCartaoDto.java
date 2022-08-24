@@ -1,9 +1,11 @@
 package com.api.financeiro.dto;
 
-public record InformacaoCartaoDto(
+import java.io.Serializable;
+
+public record InformacaoCartaoDto (
         String nomeResponsavelCartao,
         Double numeroCartao,
         Integer mesCartaoExpiracao,
         Integer anoExpiracaoCartao,
-        Integer codigoDeSeguranca) {
+        Integer codigoDeSeguranca) implements Serializable {
 }

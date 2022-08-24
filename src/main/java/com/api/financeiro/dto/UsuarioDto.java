@@ -1,4 +1,6 @@
 package com.api.financeiro.dto;
 
-public record UsuarioDto(Long id,String nome) {
+import java.io.Serializable;
+
+public record UsuarioDto(Long id, String nome) implements Serializable {
 }

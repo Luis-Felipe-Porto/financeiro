@@ -29,10 +29,10 @@ public class AgendamentoDePagamento {
     @Scheduled(cron = CRON_LATE_LOANS)
     public void realizarAgendamentoDePagamento(){
         List<PagamentoClienteDto> pagamentoClienteDtos = pagamentoService.pagamentoAgendados(QTD_PAGAMENTO);
-
         pagamentoClienteDtos.forEach(pagamentoClienteDto -> {
+            pagamentoService.salvarPagamentoEfetuado(pagamentoClienteDto);
             rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto);
+            System.out.println("Pagamento["+pagamentoClienteDto.pagamentoDto()+"] ------- Agendado");
         });
-        System.out.println("Pagamento ------- Agendado");
     }
 }
