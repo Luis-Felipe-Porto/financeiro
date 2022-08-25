@@ -32,7 +32,7 @@ public class AgendamentoDePagamento {
         pagamentoClienteDtos.forEach(pagamentoClienteDto -> {
             pagamentoService.salvarPagamentoEfetuado(pagamentoClienteDto);
             rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto);
-            System.out.println("Pagamento["+pagamentoClienteDto.pagamentoDto()+"] ------- Agendado");
+            System.out.println("Pagamento["+pagamentoClienteDto.pagamentoDto()+"] -------Efetuado");
         });
     }
 }

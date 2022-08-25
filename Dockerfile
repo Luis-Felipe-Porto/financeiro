@@ -13,4 +13,4 @@ WORKDIR /app
 
 COPY --from=builder /app/target/*.jar /app/financeiro.jar
 
-CMD ["java", "-jar", "financeiro.jar"]
+ENTRYPOINT ["java", "-jar", "financeiro.jar"]
