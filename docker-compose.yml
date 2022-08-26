@@ -13,15 +13,18 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - RABBITMQ=rabbitmq
+      SPRING_RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3-management
     ports:
       - 5672:5672
       - 15672:15672
-    volumes:
-      - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
+#    volumes:
+#      - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
