@@ -38,7 +38,8 @@ public class PagamentoMapperCustom implements PagamentoMapper {
     }
     public PagamentoClienteDto pagamentoToClienteDto(Pagamento pagamento){
         PagamentoDto pagamentoDto = this.pagamentoToPagamentoDto(pagamento);
-        return new PagamentoClienteDto(pagamentoDto,
+        return new PagamentoClienteDto(pagamento.getDadosClientePagamento().getId(),
+                pagamentoDto,
                 informacaoCartaoToInformacaoCartaoDto(pagamento.getDadosClientePagamento().getInformacoesCartao()),
                 pagamento.getDadosClientePagamento().getEmail(),
                 pagamento.getDadosClientePagamento().getValorCompra());

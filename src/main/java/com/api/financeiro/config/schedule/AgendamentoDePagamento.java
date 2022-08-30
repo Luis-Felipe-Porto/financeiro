@@ -1,5 +1,6 @@
 package com.api.financeiro.config.schedule;
 
+import com.api.financeiro.config.logger.LoggerFinanceiroApplication;
 import com.api.financeiro.config.rabbitmq.enums.RabbitMQConstantes;
 import com.api.financeiro.config.rabbitmq.service.RabbitMQService;
 import com.api.financeiro.dto.PagamentoClienteDto;
@@ -31,8 +32,8 @@ public class AgendamentoDePagamento {
         List<PagamentoClienteDto> pagamentoClienteDtos = pagamentoService.pagamentoAgendados(QTD_PAGAMENTO);
         pagamentoClienteDtos.forEach(pagamentoClienteDto -> {
             pagamentoService.salvarPagamentoEfetuado(pagamentoClienteDto);
-            rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto);
-            System.out.println("Pagamento["+pagamentoClienteDto.pagamentoDto()+"] -------Efetuado");
+            rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto.email());
+            LoggerFinanceiroApplication.logger.warn("Pagamento["+pagamentoClienteDto.pagamentoDto()+"]-- Efetuado");
         });
     }
 }

@@ -13,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
   rabbitmq:
-    host: rabbitmq
+    host: ${SPRING_RABBITMQ_HOST:localhost}
     port: 5672
     password: admin
     username: admin
