@@ -19,3 +19,16 @@ spring:
     username: admin
 application:
   quantidade-pagamento: 50
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
+  trace:
+    http:
+      enabled: true
+      include: RESPONSE_HEADERS
