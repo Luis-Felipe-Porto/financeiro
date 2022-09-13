@@ -39,11 +39,18 @@ services:
     ports:
     - "9090:9090"
     extra_hosts:
-      - "host.docker.internal:host-gateway"
-
+      - "host.docker.internal:172.18.0.1"
   grafana:
     image: grafana/grafana
     container_name: grafana
     ports:
       - "3000:3000"
+#    depends_on:
+#      - prometheus
+#      - mongo-mkt
+#networks:
+#  default:
+#    external:
+#      name: mongodb_network
+
 
