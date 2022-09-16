@@ -31,6 +31,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
+      - API_FINANCEIRO=api
 
   prometheus:
     container_name: prometheus

@@ -32,3 +32,5 @@ management:
     http:
       enabled: true
       include: RESPONSE_HEADERS
+server:
+  port: 8090
