@@ -12,6 +12,9 @@ services:
       - 8092:8090
     depends_on:
       - rabbitmq
+    links:
+      - rabbitmq
+    restart: on-failure
     environment:
       SPRING_RABBITMQ_HOST: rabbitmq
       RABBITMQ_PORT: 5672
