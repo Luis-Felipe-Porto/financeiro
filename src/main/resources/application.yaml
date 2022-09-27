@@ -3,7 +3,7 @@ spring:
     name: financeiro
   datasource:
     username: sa
-    url: jdbc:h2:file:./financeiro/data/pagamento
+    url: jdbc:h2:file:.data/pagamento
     driverClassName: org.h2.Driver
     password: password
   h2:
