@@ -45,3 +45,11 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${random.int}
+#TODO: adicionar um direcionamento sincrono entre os microservice caso nao de mandar mensagem para o rabbitmq e colocar na fila
+resilience4j:
+  circuitbreaker:
+    instances:
+      compraProduto:
+        sliding-window-size: 3
+        minimum-number-of-calls: 2
+        wait-duration-in-open-state: 50s
