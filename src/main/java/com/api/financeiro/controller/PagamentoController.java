@@ -36,9 +36,8 @@ public class PagamentoController{
         return ResponseEntity.ok(pagamentoService.realizarPagamento(dadosClientePagamento));
     }
     public ResponseEntity<PagamentoDto> agendarLiberacaoDeMatricula(DadosClientePagamento dadosClientePagamento,Exception exception){
-        pagamentoService.agendarMatriculaDoAluno(dadosClientePagamento);
         LoggerFinanceiroApplication.logger.error(exception.getMessage());
-        LoggerFinanceiroApplication.logger.warn("Agendamento de Matricula".concat(dadosClientePagamento.getEmail()));
-        return ResponseEntity.ok(new PagamentoDto(1L,20.0,"Teste"));
+        LoggerFinanceiroApplication.logger.warn("Agendamento de Matricula: ".concat(dadosClientePagamento.getEmail()));
+        return ResponseEntity.ok(pagamentoService.agendarMatriculaDoAluno(dadosClientePagamento));
     }
 }

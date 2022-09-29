@@ -70,9 +70,11 @@ public class PagamentoService {
         }).orElseThrow(() -> new RuntimeException("ERRO AO REALIZAR PAGAMENTO"));
         return pagamentoMapperCustom.pagamentoToPagamentoDto(pagamentoRealizado);
     }
-    public void agendarMatriculaDoAluno(DadosClientePagamento dadosClientePagamento){
+    public PagamentoDto agendarMatriculaDoAluno(DadosClientePagamento dadosClientePagamento){
         rabbitMQService.enviaMensagem(
                 RabbitMQConstantes.FILA_ACADEMICA.getValue(),
                 dadosClientePagamento.getDocumentoCliente());
+        Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
+        return pagamentoMapperCustom.pagamentoToPagamentoDto(pagamento);
     }
 }
