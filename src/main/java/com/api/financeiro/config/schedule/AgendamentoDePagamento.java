@@ -18,7 +18,7 @@ public class AgendamentoDePagamento {
 
     private static final String CRON_LATE_LOANS = "0 */1 * ? * *";
     @Value("${application.quantidade-pagamento}")
-    private static Integer QTD_PAGAMENTO;
+    private Integer QTD_PAGAMENTO;
 
     private PagamentoService pagamentoService;
     private RabbitMQService rabbitMQService;
