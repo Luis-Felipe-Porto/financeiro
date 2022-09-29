@@ -32,12 +32,16 @@ public class PagamentoService {
 
     private final AcademicoClient academicoClient;
 
+    private final RabbitMQService rabbitMQService;
+
     public PagamentoService(PagamentoRepository pagamentoRepository, DadosClientePagamentoRepository dadosClientePagamentoRepository,
-                            PagamentoMapperCustom pagamentoMapperCustom, AcademicoClient academicoClient) {
+                            PagamentoMapperCustom pagamentoMapperCustom, AcademicoClient academicoClient,
+                            RabbitMQService rabbitMQService) {
         this.pagamentoRepository = pagamentoRepository;
         this.dadosClientePagamentoRepository = dadosClientePagamentoRepository;
         this.pagamentoMapperCustom = pagamentoMapperCustom;
         this.academicoClient = academicoClient;
+        this.rabbitMQService = rabbitMQService;
     }
     @Transactional
     public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException {
@@ -65,5 +69,10 @@ public class PagamentoService {
             return pagamentoRepository.save(pagamento);
         }).orElseThrow(() -> new RuntimeException("ERRO AO REALIZAR PAGAMENTO"));
         return pagamentoMapperCustom.pagamentoToPagamentoDto(pagamentoRealizado);
+    }
+    public void agendarMatriculaDoAluno(DadosClientePagamento dadosClientePagamento){
+        rabbitMQService.enviaMensagem(
+                RabbitMQConstantes.FILA_ACADEMICA.getValue(),
+                dadosClientePagamento.getDocumentoCliente());
     }
 }

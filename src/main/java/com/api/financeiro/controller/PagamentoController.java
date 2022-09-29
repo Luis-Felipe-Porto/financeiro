@@ -1,5 +1,8 @@
 package com.api.financeiro.controller;
 
+import com.api.financeiro.config.logger.LoggerFinanceiroApplication;
+import com.api.financeiro.config.rabbitmq.enums.RabbitMQConstantes;
+import com.api.financeiro.config.rabbitmq.service.RabbitMQService;
 import com.api.financeiro.dto.PagamentoDto;
 import com.api.financeiro.entity.DadosClientePagamento;
 import com.api.financeiro.entity.Pagamento;
@@ -16,13 +19,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/v1/financeiro")
 @Controller
-public record PagamentoController (PagamentoService pagamentoService,UsuarioService usuarioService){
+public class PagamentoController{
+
+    private final PagamentoService pagamentoService;
+    private final UsuarioService usuarioService;
+
+    public PagamentoController(PagamentoService pagamentoService, UsuarioService usuarioService) {
+        this.pagamentoService = pagamentoService;
+        this.usuarioService = usuarioService;
+    }
 
     @PostMapping()
-//    @CircuitBreaker(name = "pagamento",fallbackMethod = "")
+    @CircuitBreaker(name = "pagamentoTest",fallbackMethod = "agendarLiberacaoDeMatricula")
     public ResponseEntity<PagamentoDto> pagamento(@RequestBody DadosClientePagamento dadosClientePagamento)
             throws UserNotFoundException, InterruptedException {
-
         return ResponseEntity.ok(pagamentoService.realizarPagamento(dadosClientePagamento));
+    }
+    public ResponseEntity<PagamentoDto> agendarLiberacaoDeMatricula(DadosClientePagamento dadosClientePagamento,Exception exception){
+        pagamentoService.agendarMatriculaDoAluno(dadosClientePagamento);
+        LoggerFinanceiroApplication.logger.error(exception.getMessage());
+        LoggerFinanceiroApplication.logger.warn("Agendamento de Matricula".concat(dadosClientePagamento.getEmail()));
+        return ResponseEntity.ok(new PagamentoDto(1L,20.0,"Teste"));
     }
 }

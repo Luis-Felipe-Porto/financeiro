@@ -23,12 +23,9 @@ public class AgendamentoDePagamento {
     private PagamentoService pagamentoService;
     private RabbitMQService rabbitMQService;
 
-    private AcademicoClient marketingClient;
-
-    public AgendamentoDePagamento(PagamentoService pagamentoService, RabbitMQService rabbitMQService, AcademicoClient marketingClient) {
+    public AgendamentoDePagamento(PagamentoService pagamentoService, RabbitMQService rabbitMQService) {
         this.pagamentoService = pagamentoService;
         this.rabbitMQService = rabbitMQService;
-        this.marketingClient = marketingClient;
     }
 
     @Scheduled(cron = CRON_LATE_LOANS)
@@ -36,9 +33,6 @@ public class AgendamentoDePagamento {
         List<PagamentoClienteDto> pagamentoClienteDtos = pagamentoService.pagamentoAgendados(QTD_PAGAMENTO);
         pagamentoClienteDtos.forEach(pagamentoClienteDto -> {
             pagamentoService.salvarPagamentoEfetuado(pagamentoClienteDto);
-            /*
-            * TODO: Verificar os circuit break ao converter Lead de forma sincrona
-            * */
             rabbitMQService.enviaMensagem(RabbitMQConstantes.FILA_FINANCEIRO.getValue(),pagamentoClienteDto.email());
             LoggerFinanceiroApplication.logger.warn("Pagamento["+pagamentoClienteDto.pagamentoDto()+"]-- Efetuado");
         });
