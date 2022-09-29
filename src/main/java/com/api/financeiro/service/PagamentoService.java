@@ -1,5 +1,6 @@
 package com.api.financeiro.service;
 
+import com.api.financeiro.config.feign.AcademicoClient;
 import com.api.financeiro.config.rabbitmq.enums.RabbitMQConstantes;
 import com.api.financeiro.config.rabbitmq.service.RabbitMQService;
 import com.api.financeiro.dto.InformacaoCartaoDto;
@@ -29,20 +30,25 @@ public class PagamentoService {
 
     private final PagamentoMapperCustom pagamentoMapperCustom;
 
-    private final RabbitMQService rabbitMQService;
+    private final AcademicoClient academicoClient;
 
     public PagamentoService(PagamentoRepository pagamentoRepository, DadosClientePagamentoRepository dadosClientePagamentoRepository,
-                            PagamentoMapperCustom pagamentoMapperCustom, RabbitMQService rabbitMQService) {
+                            PagamentoMapperCustom pagamentoMapperCustom, AcademicoClient academicoClient) {
         this.pagamentoRepository = pagamentoRepository;
         this.dadosClientePagamentoRepository = dadosClientePagamentoRepository;
         this.pagamentoMapperCustom = pagamentoMapperCustom;
-        this.rabbitMQService = rabbitMQService;
+        this.academicoClient = academicoClient;
     }
     @Transactional
     public PagamentoDto realizarPagamento(@Valid DadosClientePagamento dadosClientePagamento) throws UserNotFoundException {
         dadosClientePagamentoRepository.save(dadosClientePagamento);
         Pagamento pagamento = pagamentoMapperCustom.dadosClienteToPagamento(dadosClientePagamento);
         pagamentoRepository.save(pagamento);
+        /**
+         * Altera Status de Matricula do Aluno
+         * - chamar mircrosservice academico para liberar matricula
+         * **/
+        academicoClient.updateMatricula(dadosClientePagamento.getDocumentoCliente());
         return new PagamentoDto(pagamento.getId(),pagamento.getValor(),pagamento.getDescricao());
     }
     public List<PagamentoClienteDto> pagamentoAgendados(Integer quantidade){

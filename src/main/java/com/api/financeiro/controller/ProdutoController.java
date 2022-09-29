@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public record ProdutoController(ProdutoService produtoService) {
 
     @PostMapping("/{usuarioId}/comprar")
-    @CircuitBreaker(name = "compraProduto",fallbackMethod = "")
     public ResponseEntity<ProdutoDto> comprar(@PathVariable Long usuarioId, @RequestBody Produto produto) throws UserNotFoundException {
         return ResponseEntity.ok(produtoService.comprarProduto(usuarioId, produto));
     }
